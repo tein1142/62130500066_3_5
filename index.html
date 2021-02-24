@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic Vue Js - HelloWorld App</title>
+
+  <!-- https://google.github.io/material-design-icons/#icon-font-for-the-web -->
+  <!-- Using via Google Web Fonts -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <!-- https://tailwindcss.com/docs/installation -->
+  <!-- Using Tailwind via CDN -->
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+
+  <!-- https://v3.vuejs.org/guide/installation.html#release-notes -->
+  <!-- Vue CDN -->
+  <script src="https://unpkg.com/vue@next"></script>
+
+<style>
+  html{
+    scroll-behavior: smooth;
+  }
+</style>
+</head>
+
+<body>
+  <div class="w-full bg-gray-300 flex justify-center" id="app">
+    <div class="container flex flex-row justify-center py-20">
+      <div class="p-3 bg-white rounded-x max-w-lg hover:shadow">
+        <div class="flex justify-between w-full"> <img v-bind:src="imgProfile" width="250" class="rounded-2xl">
+          <div class="ml-2">
+            <div class="p-3">
+              <h3 class="text-2xl">{{firstName}} {{lastName}}</h3> <span>{{role}}</span>
+            </div>
+            <div class="flex justify-between items-center p-3 bg-gray-200 rounded-lg">
+              <div class="mr-3"> <span class="text-gray-400 block">Article</span> <span
+                  class="font-bold text-black text-xl">34</span> </div>
+              <div class="mr-3"> <span class="text-gray-400 block">Followers</span> <span
+                  class="font-bold text-black text-xl">940</span> </div>
+              <div> <span class="text-gray-400 block">Ratings</span> <span
+                  class="font-bold text-black text-xl">8.9</span> </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-between items-center mt-2 gap-2"> <button
+            class="w-full h-12 rounded-md border-2 text-md hover:shadow hover:bg-red-700 hover:border-red-700 hover:text-white ">Chat</button>
+          <button
+            class="w-full h-12 rounded-md bg-blue-700 text-white text-md hover:shadow hover:bg-blue-800">{{follow}}</button>
+        </div>
+
+
+<!-- PhotoSearch -->
+
+<photo-search v-model:field="searchField" :button="searchButton" @start-search="toggleSearch" @start-clear="toggleClear"></photo-search>
+
+        <!-- <div class="">
+          <div class="flex justify-end">
+            <button><span v-show="!searchButton" @click="toggleSearch"
+                class="material-icons mt-4 text-4xl">search</span></button>
+          </div>
+          <div v-show="searchButton" class="mt-4 flex justify-center">
+            <input class="border-2 w-1/2" v-model="searchField" type="text" placeholder="Search something...">
+            <button @click="toggleClear"
+              class="rounded-full hover:bg-red-400 bg-green-500 p-2 text-1xl ml-2 font-bold">Clear</button>
+            <button @click="toggleSearch"
+              class="rounded-full bg-green-500 hover:bg-red-400 p-2 text-1xl ml-2 font-bold">Close</button>
+          </div>
+        </div> -->
+
+
+        
+        <h1 id="likePic" class="text-2xl font-bold ml-12 mt-4 mb-4">Like Picture ({{countLike}})</h1>
+
+
+        <!-- canvasView -->
+        <photo-view @canvas-exit="closeCanvas" :picture-canvas="canvasPic"></photo-view>
+
+        <!-- <div id="canvas" v-show="canvasPic" class="bg-black">
+          <div class="flex justify-end">
+            <button @click="closeCanvas" class="mr-4 mt-2">
+              <span class="material-icons text-white rounded rounded-full bg-red-500">
+                close
+              </span>
+            </button>
+          </div>
+          <div class="flex justify-center">
+            <img class="mb-10" v-bind:src="canvasPic" width="400">
+          </div>
+        </div> -->
+
+
+
+        <div v-for="(pic,index) in searchPic" :class="{done: pic.done}" class="flex flex-end">
+
+          <!-- PhotoItem -->
+          <photo-item :pic="pic" @show-canvas="showCanvas" @toggle-done="toggleDone" ></photo-item>
+
+
+          <!-- <div class="ml-12 flex flex-col">
+            <div>
+              <ul>
+                <li>
+                  <button @click="showCanvas(pic.image)" v-on:dblclick="toggleDone(index)">
+                   <a href="#likePic"><img v-bind:src="pic.image" class="mt-8 hover:shadow " width="250"></a> 
+                  </button>
+                  <p class="font-bold text-blue-800">{{pic.title}}
+                    <button v-on:click="toggleDone(pic.title)">
+                      <span v-show="!pic.done" class="material-icons text-gray-300 text-2xl">
+                        favorite
+                      </span>
+                      <span v-show="pic.done" class="material-icons text-red-500 text-2xl">
+                        favorite
+                      </span>
+                    </button>
+                  </p>
+                  <p>{{pic.description}}</p>
+                  <p>{{pic.description2}}</p>
+            </div>
+
+
+            </li>
+            </ul>
+          </div> -->
+
+        </div>
+        <p v-if:="noPic <= 0" class="ml-12 mt-4 text-xl">No Photos.</p>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- my main.js -->
+  <script src="./main.js"></script>
+  <script src="./components/PhotoSearch.js"></script>
+  <script src="./components/PhotoView.js"></script>
+  <script src="./components/PhotoItem.js"></script>
+  <script>
+    const mountedApp = app.mount('#app')
+  </script>
+</body>
+
+</html>
