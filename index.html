@@ -18,11 +18,11 @@
   <!-- Vue CDN -->
   <script src="https://unpkg.com/vue@next"></script>
 
-<style>
-  html{
-    scroll-behavior: smooth;
-  }
-</style>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
 </head>
 
 <body>
@@ -51,9 +51,10 @@
         </div>
 
 
-<!-- PhotoSearch -->
+        <!-- PhotoSearch -->
 
-<photo-search v-model:field="searchField" :button="searchButton" @start-search="toggleSearch" @start-clear="toggleClear"></photo-search>
+        <photo-search v-model:field="searchField" :button="searchButton" @start-search="toggleSearch"
+          @start-clear="toggleClear"></photo-search>
 
         <!-- <div class="">
           <div class="flex justify-end">
@@ -70,7 +71,7 @@
         </div> -->
 
 
-        
+
         <h1 id="likePic" class="text-2xl font-bold ml-12 mt-4 mb-4">Like Picture ({{countLike}})</h1>
 
 
@@ -92,38 +93,32 @@
 
 
 
-        <div v-for="(pic,index) in searchPic" :class="{done: pic.done}" class="flex flex-end">
+        <div v-for="(pic,index) in searchPic"  class="flex flex-end">
 
           <!-- PhotoItem -->
-          <photo-item :pic="pic" @show-canvas="showCanvas" @toggle-done="toggleDone" ></photo-item>
-
+          <photo-item :pic="pic" @show-canvas="showCanvas" @toggle-done="toggleDone"></photo-item>
 
           <!-- <div class="ml-12 flex flex-col">
-            <div>
-              <ul>
-                <li>
-                  <button @click="showCanvas(pic.image)" v-on:dblclick="toggleDone(index)">
-                   <a href="#likePic"><img v-bind:src="pic.image" class="mt-8 hover:shadow " width="250"></a> 
+            <ul>
+              <li>
+                <button @click="showCanvas(pic.image)" v-on:dblclick="toggleDone(index)">
+                  <a href="#likePic"><img v-bind:src="pic.image" class="mt-8 hover:shadow " width="250"></a>
+                </button>
+                <p class="font-bold text-blue-800">{{pic.title}}
+                  <button v-on:click="toggleDone(pic.title)">
+                    <span v-show="!pic.done" class="material-icons text-gray-300 text-2xl">
+                      favorite
+                    </span>
+                    <span v-show="pic.done" class="material-icons text-red-500 text-2xl">
+                      favorite
+                    </span>
                   </button>
-                  <p class="font-bold text-blue-800">{{pic.title}}
-                    <button v-on:click="toggleDone(pic.title)">
-                      <span v-show="!pic.done" class="material-icons text-gray-300 text-2xl">
-                        favorite
-                      </span>
-                      <span v-show="pic.done" class="material-icons text-red-500 text-2xl">
-                        favorite
-                      </span>
-                    </button>
-                  </p>
-                  <p>{{pic.description}}</p>
-                  <p>{{pic.description2}}</p>
-            </div>
-
-
-            </li>
+                </p>
+                <p>{{pic.description}}</p>
+                <p>{{pic.description2}}</p>
+              </li>
             </ul>
           </div> -->
-
         </div>
         <p v-if:="noPic <= 0" class="ml-12 mt-4 text-xl">No Photos.</p>
       </div>
